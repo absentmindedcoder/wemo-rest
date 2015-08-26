@@ -1,0 +1,17 @@
+{
+  "name": "wemo-rest",
+  "version": "1.0.0",
+  "description": "Rest server to control on network wemo devices",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "wemo-client": "^0.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
