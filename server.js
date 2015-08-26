@@ -13,6 +13,8 @@ app.post('/automate', function(req, res){
   var device = req.query.device;
   var state = req.query.state;
   
+  console.log('Request received: ' + req.query);
+
   if(device && clients[device] && state){
     clients[device].setBinaryState(state);
     res.status(200).json({msg: 'success'});
