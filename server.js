@@ -4,7 +4,7 @@ var wemo = new W();
 var clients = {};
 var app = express();
 
-var TOTAL_DEVICES = 1; //HACK since using UPnP you con't know the total devices
+var TOTAL_DEVICES = 2; //HACK since using UPnP you con't know the total devices
 var devicesFound = 0;
 
 console.log('init')
