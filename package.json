@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "express": "^4.13.3",
+    "jsonfile": "^2.2.3",
     "wemo-client": "^0.2.0"
   },
   "devDependencies": {},

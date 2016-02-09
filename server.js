@@ -1,21 +1,21 @@
-var W = new require('wemo-client');
+var wemo = new require('wemo-client');
+var wemoClient = new wemo();
 var express = require('express');
-var wemo = new W();
+var jsonFile = require('jsonfile');
 var clients = {};
 var app = express();
 
-var TOTAL_DEVICES = 2; //HACK since using UPnP you con't know the total devices
-var devicesFound = 0;
+console.log('init');
 
-console.log('init')
+var clients = {};
 
 app.post('/automate', function(req, res){
   var device = req.query.device;
   var state = req.query.state;
-  
+
   console.log('Request received: ', req.query);
 
-  if(device && clients[device] && state){
+  if(device && clients[device.toLowerCase()] && state){
     clients[device].setBinaryState(state);
     res.status(200).json({msg: 'success'});
   } else {
@@ -23,22 +23,27 @@ app.post('/automate', function(req, res){
   }
 });
 
-
-wemo.discover(function(deviceInfo) {
-  console.log('Wemo Device Found: %j', deviceInfo.friendlyName);
-  clients[deviceInfo.friendlyName] = wemo.client(deviceInfo);
-  devicesFound++;
-  
-  if(devicesFound === TOTAL_DEVICES){
-    startServer();
-  }
-});
-
 function startServer(){
   var server = app.listen(3000, function () {
     var host = server.address().address;
     var port = server.address().port;
-
     console.log('App listening at http://%s:%s', host, port);
   });
 }
+
+jsonFile.readFile('./wemo-devices.json', function(err, config){
+  if(err){
+    return console.error(err);
+  }
+
+  if(config &&config.length){
+    config.forEach(function(device){
+      clients[device.name.toLowerCase()] = wemoClient.client(device.setup);
+      console.log('created client for: ' + device.name);
+    });
+    console.log('starting server');
+    startServer();
+  } else {
+    console.error('Invalid config or config has no devices');
+  }
+});
