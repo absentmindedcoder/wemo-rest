@@ -4,7 +4,7 @@ A Belkin Wemo control server written in Node
 # Setup
 Run `node discovery.js`
 This runs for 60 secs to try and find any devices on the network. Once the timer is up a json file is written out with
-all of the device configurations
+all of the device configurations. You may have to run this multiple time to get all the devices as teh discovery can be pretty flacky =/
 
 # Run
 Run `node server.js`
