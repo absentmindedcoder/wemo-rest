@@ -31,7 +31,7 @@ function startServer(){
   });
 }
 
-jsonFile.readFile('./wemo-devices.json', function(err, config){
+jsonFile.readFile(__dirname + '/wemo-devices.json', function(err, config){
   if(err){
     return console.error(err);
   }
